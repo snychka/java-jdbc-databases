@@ -1,6 +1,7 @@
 package com.pluralsight.order.dao;
 
 import com.pluralsight.order.dto.ParamsDto;
+import com.pluralsight.order.util.Database;
 import com.pluralsight.order.util.ExceptionHandler;
 
 import java.sql.Connection;
@@ -21,10 +22,10 @@ public class UpdateOrderDao {
     public int updateOrderStatus(ParamsDto paramsDTO) {
         int numberResults = 0;
 
-        try (Connection con = null;
+        try (Connection con = Database.getInstance().getConnection();
              PreparedStatement ps = createPreparedStatement(con, paramsDTO)
         ) {
-
+            numberResults = ps.executeUpdate();
         } catch (SQLException ex) {
             ExceptionHandler.handleException(ex);
         }
@@ -40,7 +41,9 @@ public class UpdateOrderDao {
      * @throws SQLException In case of an error
      */
     private PreparedStatement createPreparedStatement(Connection con, ParamsDto paramsDTO) throws SQLException {
-
-        return null;
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, paramsDTO.getStatus());
+        ps.setLong(2, paramsDTO.getOrderId());
+        return ps;
     }
 }

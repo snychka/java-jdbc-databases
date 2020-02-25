@@ -1,6 +1,7 @@
 package com.pluralsight.order.dao;
 
 import com.pluralsight.order.dto.ParamsDto;
+import com.pluralsight.order.util.Database;
 import com.pluralsight.order.util.ExceptionHandler;
 
 import java.math.BigDecimal;
@@ -19,11 +20,19 @@ public class TotalOrderDao {
      */
     public BigDecimal getTotalAllOrders(ParamsDto paramsDTO) {
         BigDecimal result = null;
-
-        try (Connection con = null;
+      
+        try (Connection con = Database.getInstance().getConnection();
              CallableStatement cs = createCallabeStatement(con, paramsDTO)
         ) {
+            boolean success = cs.execute();
 
+            if (success) {
+                try(ResultSet resultSet = cs.getResultSet()){
+                    if (resultSet.next()) {
+                        result = resultSet.getBigDecimal(1);
+                    }
+                }
+            }
         } catch (SQLException ex) {
             ExceptionHandler.handleException(ex);
         }
@@ -39,7 +48,8 @@ public class TotalOrderDao {
      * @throws SQLException In case of an error
      */
     private CallableStatement createCallabeStatement(Connection con, ParamsDto paramsDTO) throws SQLException {
-
-        return null;
+        CallableStatement cs = con.prepareCall(query);
+        cs.setLong(1, paramsDTO.getCustomerId());
+        return cs;
     }
 }
