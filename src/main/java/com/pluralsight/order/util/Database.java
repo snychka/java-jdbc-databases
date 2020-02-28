@@ -12,6 +12,7 @@ import java.sql.SQLException;
  */
 public class Database {
     private static Database instance = null;
+    private static boolean isInitialized = false;
 
     /**
      * Private constructor
@@ -19,21 +20,27 @@ public class Database {
     private Database() { }
 
     /**
-     * Method that creates an instance of this class (if it's not created already), initializing the database
+     * Method that creates an instance of this class (if it's not created already)
      * @return Instance of the class
      */
     public static Database getInstance() {
         if(instance == null) {
             instance = new Database();
-
-            try {
-                InputStream is = Database.class.getResourceAsStream("/db.sql");
-                RunScript.execute(instance.getConnection(), new InputStreamReader(is));
-            } catch(Exception ex) {
-                throw new RuntimeException("Database couldn't be initialized", ex);
-            }
         }
         return instance;
+    }
+
+    /**
+     * Run the script to initialize the database
+     * @param connection Object that represents a connection to the database
+     */
+    private static void initializeDatabase(Connection connection) {
+        try {
+            InputStream is = Database.class.getResourceAsStream("/db.sql");
+            RunScript.execute(connection, new InputStreamReader(is));
+        } catch(Exception ex) {
+            throw new RuntimeException("Database couldn't be initialized", ex);
+        }
     }
 
     /**
@@ -42,7 +49,13 @@ public class Database {
      * @throws SQLException In case of a database error
      */
     public Connection getConnection() throws SQLException {
+        Connection connection = null;
 
-        return null;
+        if(!isInitialized && connection != null) {
+            initializeDatabase(connection);
+            isInitialized = true;
+        }
+
+        return connection;
     }
 }
