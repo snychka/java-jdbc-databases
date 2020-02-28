@@ -32,7 +32,7 @@ public class InsertOrderDao {
 
 
             try (ResultSet result = null ) {
-                if(!result.next()){
+                if(result != null && !result.next()){
 
                 } else {
 
