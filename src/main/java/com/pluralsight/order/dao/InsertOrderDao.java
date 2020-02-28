@@ -32,20 +32,21 @@ public class InsertOrderDao {
 
 
             try (ResultSet result = null ) {
-                if(result != null && !result.next()){
+                if(result != null) {
+                    if(!result.next()){
+                        
+                    } else {
 
-                } else {
+                        for (OrderDetailDto orderDetailDTO : orderDto.getOrderDetail()) {
 
 
-                    for (OrderDetailDto orderDetailDTO : orderDto.getOrderDetail()) {
+                            try (PreparedStatement detailsPS =
+                                         createOrderDetailPreparedStatement(con, orderDetailDTO)) {
 
-
-                        try (PreparedStatement detailsPS =
-                                     createOrderDetailPreparedStatement(con, orderDetailDTO)) {
-
+                            }
                         }
+                        
                     }
-
                 }
             } catch(SQLException ex) {
 
