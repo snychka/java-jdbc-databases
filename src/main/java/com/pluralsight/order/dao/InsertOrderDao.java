@@ -2,6 +2,7 @@ package com.pluralsight.order.dao;
 
 import com.pluralsight.order.dto.OrderDto;
 import com.pluralsight.order.dto.OrderDetailDto;
+import com.pluralsight.order.util.Database;
 import com.pluralsight.order.util.ExceptionHandler;
 
 import java.sql.*;
@@ -17,6 +18,15 @@ public class InsertOrderDao {
             "INSERT INTO order_details "
                     + "(order_detail_order_id, order_detail_product_id, order_detail_quantity) "
                     + "VALUES (?, ?, ?)";
+    private Database database;
+
+    /**
+     * Constructor
+     * @param database Database object
+     */
+    public InsertOrderDao(Database database) {
+        this.database = database;
+    }
 
     /**
      * Inserts an order

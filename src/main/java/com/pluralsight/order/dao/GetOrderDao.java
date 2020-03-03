@@ -2,6 +2,7 @@ package com.pluralsight.order.dao;
 
 import com.pluralsight.order.dto.OrderDto;
 import com.pluralsight.order.dto.ParamsDto;
+import com.pluralsight.order.util.Database;
 import com.pluralsight.order.util.ExceptionHandler;
 
 import java.sql.Connection;
@@ -14,6 +15,15 @@ import java.sql.SQLException;
  */
 public class GetOrderDao {
     private String query = "SELECT * FROM orders o WHERE o.order_id = ?";
+    private Database database;
+
+    /**
+     * Constructor
+     * @param database Database object
+     */
+    public GetOrderDao(Database database) {
+        this.database = database;
+    }
 
     /**
      * Gets an order by its ID

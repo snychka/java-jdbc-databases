@@ -1,6 +1,7 @@
 package com.pluralsight.order.dao;
 
 import com.pluralsight.order.dto.ParamsDto;
+import com.pluralsight.order.util.Database;
 import com.pluralsight.order.util.ExceptionHandler;
 
 import java.math.BigDecimal;
@@ -11,6 +12,15 @@ import java.sql.*;
  */
 public class TotalOrderDao {
     private String query = "{call GET_PAID_ORDER_TOTAL_FROM_CUSTOMER(?)}";
+    private Database database;
+
+    /**
+     * Constructor
+     * @param database Database object
+     */
+    public TotalOrderDao(Database database) {
+        this.database = database;
+    }
 
     /**
      * Gets the total of all paid orders of a customer
