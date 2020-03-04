@@ -27,14 +27,14 @@ public class GetOrderDao {
 
     /**
      * Gets an order by its ID
-     * @param paramsDTO Object with the parameters for the operation
+     * @param paramsDto Object with the parameters for the operation
      * @return Object with the main information of an order
      */
-    public OrderDto getOrderById(ParamsDto paramsDTO) {
-        OrderDto orderDTO = null;
+    public OrderDto getOrderById(ParamsDto paramsDto) {
+        OrderDto orderDto = null;
 
         try (Connection con = null;
-             PreparedStatement ps = createPreparedStatement(con, paramsDTO.getOrderId());
+             PreparedStatement ps = createPreparedStatement(con, paramsDto.getOrderId());
              ResultSet rs = createResultSet(ps)
         ) {
 
@@ -42,7 +42,7 @@ public class GetOrderDao {
             ExceptionHandler.handleException(ex);
         }
 
-        return orderDTO;
+        return orderDto;
     }
 
     /**
