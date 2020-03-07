@@ -1,6 +1,7 @@
 package com.pluralsight.order.dao;
 
 import com.pluralsight.order.dto.ParamsDto;
+import com.pluralsight.order.util.Database;
 import com.pluralsight.order.util.ExceptionHandler;
 
 import java.sql.Connection;
@@ -12,6 +13,15 @@ import java.sql.SQLException;
  */
 public class UpdateOrderDao {
     private String query = "UPDATE orders o SET o.order_status = ? WHERE o.order_id = ?";
+    private Database database;
+
+    /**
+     * Constructor
+     * @param database Database object
+     */
+    public UpdateOrderDao(Database database) {
+        this.database = database;
+    }
 
     /**
      * Updates the status of an order

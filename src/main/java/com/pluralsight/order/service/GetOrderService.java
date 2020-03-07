@@ -3,6 +3,7 @@ package com.pluralsight.order.service;
 import com.pluralsight.order.dao.GetOrderDao;
 import com.pluralsight.order.dto.OrderDto;
 import com.pluralsight.order.dto.ParamsDto;
+import com.pluralsight.order.util.Database;
 
 import java.text.SimpleDateFormat;
 
@@ -11,7 +12,7 @@ import java.text.SimpleDateFormat;
  */
 public class GetOrderService implements OrderService {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-    private GetOrderDao getOrderDao = new GetOrderDao();
+    private GetOrderDao getOrderDao = new GetOrderDao(Database.getInstance());
 
     /**
      * Method to execute the service operation

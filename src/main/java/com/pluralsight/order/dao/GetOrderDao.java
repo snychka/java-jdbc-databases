@@ -2,6 +2,7 @@ package com.pluralsight.order.dao;
 
 import com.pluralsight.order.dto.OrderDto;
 import com.pluralsight.order.dto.ParamsDto;
+import com.pluralsight.order.util.Database;
 import com.pluralsight.order.util.ExceptionHandler;
 
 import java.sql.Connection;
@@ -14,17 +15,26 @@ import java.sql.SQLException;
  */
 public class GetOrderDao {
     private String query = "SELECT * FROM orders o WHERE o.order_id = ?";
+    private Database database;
+
+    /**
+     * Constructor
+     * @param database Database object
+     */
+    public GetOrderDao(Database database) {
+        this.database = database;
+    }
 
     /**
      * Gets an order by its ID
-     * @param paramsDTO Object with the parameters for the operation
+     * @param paramsDto Object with the parameters for the operation
      * @return Object with the main information of an order
      */
-    public OrderDto getOrderById(ParamsDto paramsDTO) {
-        OrderDto orderDTO = null;
+    public OrderDto getOrderById(ParamsDto paramsDto) {
+        OrderDto orderDto = null;
 
         try (Connection con = null;
-             PreparedStatement ps = createPreparedStatement(con, paramsDTO.getOrderId());
+             PreparedStatement ps = createPreparedStatement(con, paramsDto.getOrderId());
              ResultSet rs = createResultSet(ps)
         ) {
 
@@ -32,7 +42,7 @@ public class GetOrderDao {
             ExceptionHandler.handleException(ex);
         }
 
-        return orderDTO;
+        return orderDto;
     }
 
     /**

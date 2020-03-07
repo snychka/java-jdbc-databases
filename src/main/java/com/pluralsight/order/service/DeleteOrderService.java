@@ -2,12 +2,13 @@ package com.pluralsight.order.service;
 
 import com.pluralsight.order.dao.DeleteOrderDao;
 import com.pluralsight.order.dto.ParamsDto;
+import com.pluralsight.order.util.Database;
 
 /**
  * Service class to delete one or more orders
  */
 public class DeleteOrderService implements OrderService {
-    private DeleteOrderDao deleteOrderDao = new DeleteOrderDao();
+    private DeleteOrderDao deleteOrderDao = new DeleteOrderDao(Database.getInstance());
 
     /**
      * Method to execute the service operation

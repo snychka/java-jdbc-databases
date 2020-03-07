@@ -1,6 +1,7 @@
 package com.pluralsight.order.dao;
 
 import com.pluralsight.order.dto.ParamsDto;
+import com.pluralsight.order.util.Database;
 import com.pluralsight.order.util.ExceptionHandler;
 
 import java.sql.Connection;
@@ -12,6 +13,15 @@ import java.util.List;
  * DAO to delete an order
  */
 public class DeleteOrderDao {
+    private Database database;
+
+    /**
+     * Constructor
+     * @param database Database object
+     */
+    public DeleteOrderDao(Database database) {
+        this.database = database;
+    }
 
     /**
      * Deletes one or more orders using their IDs

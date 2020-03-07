@@ -2,12 +2,13 @@ package com.pluralsight.order.service;
 
 import com.pluralsight.order.dao.UpdateOrderDao;
 import com.pluralsight.order.dto.ParamsDto;
+import com.pluralsight.order.util.Database;
 
 /**
  * Service class to update an order
  */
 public class UpdateOrderService implements OrderService {
-    private UpdateOrderDao updateOrderDao = new UpdateOrderDao();
+    private UpdateOrderDao updateOrderDao = new UpdateOrderDao(Database.getInstance());
 
     /**
      * Method to execute the service operation

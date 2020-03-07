@@ -1,6 +1,6 @@
-FROM maven:3.6.3-jdk-11-slim
+FROM maven:3.6.3-jdk-13
 
-WORKDIR /usr/app
+WORKDIR /src/app/
 
 # mvn needs a user.home in which to run as non-root
 # https://hub.docker.com/_/maven , "Running as non-root"
@@ -8,18 +8,18 @@ WORKDIR /usr/app
 RUN ["mkdir", "/home/projects"]
 
 RUN groupadd projects && useradd -g projects projects && \
-  chown -R projects:projects /usr/app && \
+  chown -R projects:projects /src/app && \
   chown -R projects:projects /home/projects
 
 # needed for mvn, see above
 USER projects
 
-COPY --chown=projects:projects . .
+COPY --chown=projects:projects ./pom.xml .
 
 RUN ["mvn", "clean"]
 
-RUN ["mvn", "de.qaware.maven:go-offline-maven-plugin:resolve-dependencies", "-P", "integration"]
+RUN ["mvn", "de.qaware.maven:go-offline-maven-plugin:resolve-dependencies"]
 
-RUN ["mvn", "package"]
+COPY --chown=projects:projects . .
 
-ENTRYPOINT ["java", "-jar", "./target/orders.jar"]
+ENTRYPOINT ["sh"]
