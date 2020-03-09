@@ -25,14 +25,14 @@ public class DeleteOrderDao {
 
     /**
      * Deletes one or more orders using their IDs
-     * @param paramsDTO Object with the parameters for the operation
+     * @param paramsDto Object with the parameters for the operation
      * @return Number of orders deleted
      */
-    public int deleteOrdersById(ParamsDto paramsDTO) {
+    public int deleteOrdersById(ParamsDto paramsDto) {
         int numberResults = 0;
 
         try (Connection con = null;
-             PreparedStatement ps = createPreparedStatement(con, paramsDTO.getOrderIds())
+             PreparedStatement ps = createPreparedStatement(con, paramsDto.getOrderIds())
         ) {
 
         } catch (SQLException ex) {
@@ -43,11 +43,11 @@ public class DeleteOrderDao {
     }
 
     /**
-     * Method to generate the delete SQL statement
+     * Method to build the delete SQL statement
      * @param orderIds IDs of the orders to delete
      * @return Delete SQL statement
      */
-    private String generateDeleteSql(List<Long> orderIds) {
+    private String buildDeleteSql(List<Long> orderIds) {
         String ids = null;
 
         return "DELETE FROM orders o WHERE o.order_id IN (" + ids + ")";
@@ -61,7 +61,7 @@ public class DeleteOrderDao {
      * @throws SQLException In case of an error
      */
     private PreparedStatement createPreparedStatement(Connection con, List<Long> orderIds) throws SQLException {
-        String sql = generateDeleteSql(orderIds);
+        String sql = buildDeleteSql(orderIds);
         PreparedStatement ps = null;
 
         return ps;
