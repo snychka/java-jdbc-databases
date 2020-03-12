@@ -24,14 +24,14 @@ public class TotalOrderDao {
 
     /**
      * Gets the total of all paid orders of a customer
-     * @param paramsDTO Object with the arguments of the operation
+     * @param paramsDto Object with the arguments of the operation
      * @return Total of all paid orders
      */
-    public BigDecimal getTotalAllOrders(ParamsDto paramsDTO) {
+    public BigDecimal getTotalAllPaidOrders(ParamsDto paramsDto) {
         BigDecimal result = null;
 
         try (Connection con = null;
-             CallableStatement cs = createCallabeStatement(con, paramsDTO)
+             CallableStatement cs = createCallableStatement(con, paramsDto.getCustomerId())
         ) {
 
         } catch (SQLException ex) {
@@ -42,13 +42,13 @@ public class TotalOrderDao {
     }
 
     /**
-     * Creates a PreparedStatement object to get the total of the orders
+     * Creates a CallableStatement object to get the total of the orders
      * @param con Connnection object
-     * @param paramsDTO Object with the parameters to set on the PreparedStatement
+     * @param customerId ID of the customer to set on the PreparedStatement
      * @return A PreparedStatement object
      * @throws SQLException In case of an error
      */
-    private CallableStatement createCallabeStatement(Connection con, ParamsDto paramsDTO) throws SQLException {
+    private CallableStatement createCallableStatement(Connection con, long customerId) throws SQLException {
 
         return null;
     }
