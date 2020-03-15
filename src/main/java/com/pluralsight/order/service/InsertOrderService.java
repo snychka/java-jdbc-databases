@@ -17,7 +17,7 @@ public class InsertOrderService implements OrderService {
     @Override
     public String execute(ParamsDto paramsDTO) {
         String result;
-        int orderId = insertOrderDao.insertOrder(paramsDTO.getOrder());
+        long orderId = insertOrderDao.insertOrder(paramsDTO.getOrder());
 
         if(orderId > 0) {
             result = "A new order with the ID " + orderId + " was inserted";

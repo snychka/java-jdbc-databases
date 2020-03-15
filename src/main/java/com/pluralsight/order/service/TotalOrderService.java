@@ -19,7 +19,7 @@ public class TotalOrderService implements OrderService {
     @Override
     public String execute(ParamsDto paramsDTO) {
         String result;
-        BigDecimal total = totalOrderDao.getTotalAllOrders(paramsDTO);
+        BigDecimal total = totalOrderDao.getTotalAllPaidOrders(paramsDTO);
 
         if(total != null) {
             result = "Total: " + total.toString();

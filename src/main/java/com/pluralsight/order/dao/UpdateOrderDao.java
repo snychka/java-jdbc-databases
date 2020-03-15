@@ -25,14 +25,14 @@ public class UpdateOrderDao {
 
     /**
      * Updates the status of an order
-     * @param paramsDTO Object with the parameters for the operation
+     * @param paramsDto Object with the parameters for the operation
      * @return Number of affected rows
      */
-    public int updateOrderStatus(ParamsDto paramsDTO) {
+    public int updateOrderStatus(ParamsDto paramsDto) {
         int numberResults = 0;
 
         try (Connection con = null;
-             PreparedStatement ps = createPreparedStatement(con, paramsDTO)
+             PreparedStatement ps = createPreparedStatement(con, paramsDto)
         ) {
 
         } catch (SQLException ex) {
@@ -45,11 +45,11 @@ public class UpdateOrderDao {
     /**
      * Creates a PreparedStatement object to update the order
      * @param con Connnection object
-     * @param paramsDTO Object with the parameters to set on the PreparedStatement
+     * @param paramsDto Object with the parameters to set on the PreparedStatement
      * @return A PreparedStatement object
      * @throws SQLException In case of an error
      */
-    private PreparedStatement createPreparedStatement(Connection con, ParamsDto paramsDTO) throws SQLException {
+    private PreparedStatement createPreparedStatement(Connection con, ParamsDto paramsDto) throws SQLException {
 
         return null;
     }
