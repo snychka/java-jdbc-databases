@@ -47,7 +47,7 @@ public class Module4_Tests {
         Database databaseMock = Mockito.mock(Database.class);
         when(databaseMock.getConnection()).thenReturn(databaseInstance.getConnection());
 
-        UpdateOrderDao do = new UpdateOrderDao(databaseMock);
+        UpdateOrderDao dao = new UpdateOrderDao(databaseMock);
         dao.updateOrderStatus(new ParamsDto());
 
         try {
