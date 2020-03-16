@@ -210,10 +210,23 @@ public class Module6_Tests {
 
         long orderId = daoMock.insertOrder(orderDto);
 
+        boolean columnIndex = true;
+        boolean columnName = true;
+
         try {
             verify(rsMock, times(1)).getLong(1);
         } catch(Error ex) {
-            fail("You didn't get the ID of the new order.");
+            columnIndex = false;
+        }
+
+        try {
+            verify(rsMock, times(1)).getLong("order_id");
+        } catch(Error ex) {
+            columnName = false;
+        }
+
+        if(!columnIndex && !columnName) {
+            fail("You didn't get the ID of the new order using the `getLong()` method of the `ResultSet` object.");
         }
 
         assertNotEquals("You didn't assign the ID of the new order to the variable `orderId`",
