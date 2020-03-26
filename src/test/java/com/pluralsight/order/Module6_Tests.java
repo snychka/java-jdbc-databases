@@ -207,6 +207,7 @@ public class Module6_Tests {
                 .when(daoMock, "createOrderPreparedStatement", any(Connection.class), any(OrderDto.class));
         when(psMock.getGeneratedKeys()).thenReturn(rsMock);
         when(rsMock.next()).thenReturn(true);
+        when(rsMock.getLong(1)).thenReturn(1L);
 
         long orderId = daoMock.insertOrder(orderDto);
 
