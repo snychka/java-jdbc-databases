@@ -30,6 +30,15 @@ public class Module6_Tests {
     private InsertOrderDao daoInstance;
     private OrderDto orderDto;
 
+    static {
+        try {
+            // In case PowerMock doesn't load the driver
+            java.sql.DriverManager.registerDriver(new org.h2.Driver());
+        } catch (SQLException e) {
+            // e.printStackTrace();
+        }
+    }
+
     @Before
     public void setup() {
         databaseInstance = Database.getInstance();
