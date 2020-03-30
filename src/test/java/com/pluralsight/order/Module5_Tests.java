@@ -33,6 +33,15 @@ public class Module5_Tests {
     private DeleteOrderDao daoInstance;
     private ParamsDto paramsDto;
 
+    static {
+        try {
+            // In case PowerMock doesn't load the driver
+            java.sql.DriverManager.registerDriver(new org.h2.Driver());
+        } catch (SQLException e) {
+            // e.printStackTrace();
+        }
+    }
+
     @Before
     public void setup() {
         databaseInstance = Database.getInstance();
@@ -71,11 +80,11 @@ public class Module5_Tests {
         int numberOfQuestionsMarks = countCharOcurrences(sql, '?');
         int numberOfCommas = countCharOcurrences(sql, ',');
 
-        assertEquals("The number of question mark placeholders in the query doesn't match the number of parameters: " + sql,
-                numberOfQuestionsMarks, orderIds.size());
+        assertEquals("The number of question marks in the query doesn't match the number of parameters: " + sql,
+                orderIds.size(), numberOfQuestionsMarks);
 
-        assertEquals("The number of commas to separate the question mark placeholders in the query is not correct: " + sql,
-                numberOfCommas, (orderIds.size() - 1));
+        assertEquals("The number of commas to separate the question marks in the query is not correct: " + sql,
+                (orderIds.size() - 1), numberOfCommas);
     }
 
     @Test

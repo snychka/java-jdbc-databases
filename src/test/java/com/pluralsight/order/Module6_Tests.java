@@ -30,6 +30,15 @@ public class Module6_Tests {
     private InsertOrderDao daoInstance;
     private OrderDto orderDto;
 
+    static {
+        try {
+            // In case PowerMock doesn't load the driver
+            java.sql.DriverManager.registerDriver(new org.h2.Driver());
+        } catch (SQLException e) {
+            // e.printStackTrace();
+        }
+    }
+
     @Before
     public void setup() {
         databaseInstance = Database.getInstance();
@@ -207,6 +216,7 @@ public class Module6_Tests {
                 .when(daoMock, "createOrderPreparedStatement", any(Connection.class), any(OrderDto.class));
         when(psMock.getGeneratedKeys()).thenReturn(rsMock);
         when(rsMock.next()).thenReturn(true);
+        when(rsMock.getLong(1)).thenReturn(1L);
 
         long orderId = daoMock.insertOrder(orderDto);
 
